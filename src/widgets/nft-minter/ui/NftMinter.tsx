@@ -1,0 +1,51 @@
+"use client"
+import { uriApi } from "@/features/mint-form/api/uriApi"
+import { setNftUri } from "@/features/mint-form/helpers/setNftUri"
+import { TNftFormValues } from "@/features/mint-form/types"
+import { MintForm } from "@/features/mint-form/ui/MintForm"
+import { CustomButton } from "@/shared/ui/CustomButton"
+import { ModalMobile } from "@/shared/ui/ModalMobile"
+import { message } from "antd"
+import { useState } from "react"
+
+export const NftMinter = () => {
+    const [openModal, setOpenModal] = useState(true);
+    const [pending, setPending] = useState(false);
+    const [isSuccess, setSuccess] = useState(false);
+
+    const handleSubmitForm = async (values: TNftFormValues) => {
+        setPending(true);
+        try {
+            const uri = await uriApi.uploadUri(setNftUri({ ...values, image: values.image[0] }))
+            if (uri) {
+                setSuccess(true);
+                message.success("success")
+            }
+        } catch (error) {
+            setSuccess(false);
+        }
+        setPending(false);
+
+
+        //setAmountValue(BigInt(1))
+    }
+    const handleOpenModal = () => {
+        setOpenModal(true)
+    }
+    const handleCloseModal = () => {
+        setOpenModal(false)
+    }
+    return (
+        <section className="flex flex-col items-center pt-[25%]">
+            <div className="container">
+                <div className="flex flex-col gap-10">
+                    <h2 className="font-bold text-2xl">Create personal unique NFT!</h2>
+                    <CustomButton color="transparent" onClick={handleOpenModal}>Create</CustomButton>
+                </div>
+            </div>
+            <ModalMobile title="Mint NFT" isOpen={openModal} onClose={handleCloseModal}>
+                <MintForm onSubmit={handleSubmitForm} loading={pending} />
+            </ModalMobile>
+        </section>
+    )
+}
