@@ -1,4 +1,5 @@
 "use client"
+import { nftApi } from "@/features/mint-form/api/backendApi"
 import { uriApi } from "@/features/mint-form/api/uriApi"
 import { setNftUri } from "@/features/mint-form/helpers/setNftUri"
 import { TNftFormValues } from "@/features/mint-form/types"
@@ -18,8 +19,14 @@ export const NftMinter = () => {
         try {
             const uri = await uriApi.uploadUri(setNftUri({ ...values, image: values.image[0] }))
             if (uri) {
-                setSuccess(true);
-                message.success("success")
+                const nftData = await nftApi.mintNft({tgUser: "maxsvk", uriUrl: uri})
+                if (nftData) {
+                    setSuccess(true);
+                    handleCloseModal()
+                    message.success("success")
+                } else {
+                    setSuccess(false);
+                }
             }
         } catch (error) {
             setSuccess(false);
@@ -39,12 +46,12 @@ export const NftMinter = () => {
         <section className="flex flex-col items-center pt-[25%]">
             <div className="container">
                 <div className="flex flex-col gap-10">
-                    <h2 className="font-bold text-2xl">Create personal unique NFT!</h2>
-                    <CustomButton color="transparent" onClick={handleOpenModal}>Create</CustomButton>
+                    <h2 className="gradient-text text-center font-bold text-2xl">Create your unique NFT now!</h2>
+                    <CustomButton color="purple" onClick={handleOpenModal}>Create</CustomButton>
                 </div>
             </div>
             <ModalMobile title="Mint NFT" isOpen={openModal} onClose={handleCloseModal}>
-                <MintForm onSubmit={handleSubmitForm} loading={pending} />
+                <MintForm onSubmit={handleSubmitForm} loading={pending} isSuccess={isSuccess}/>
             </ModalMobile>
         </section>
     )

@@ -16,6 +16,7 @@ type TUploadFormProps = {
     defaultFileList?: UploadFile[] | undefined,
     handleFormChange: () => void,
     max?: number,
+    isSuccess: boolean,
 }
 
 const normFile = (e: any) => {
@@ -30,7 +31,7 @@ const normFile = (e: any) => {
     return
 };
 
-export const ImageFormItem: FC<TUploadFormProps> = ({ name, label, defaultFileList, handleFormChange, multiple=false, max=1 }) => {
+export const ImageFormItem: FC<TUploadFormProps> = ({ name, label, defaultFileList, handleFormChange, multiple=false, max=1, isSuccess }) => {
     const [fileList, setFileList] = useState<UploadFile[]>([]);
     const [previewImage, setPreviewImage] = useState('');
     const [previewOpen, setPreviewOpen] = useState(false);
@@ -79,7 +80,9 @@ export const ImageFormItem: FC<TUploadFormProps> = ({ name, label, defaultFileLi
             message.error('Image upload failed');
         }
     };
-
+    useEffect(() => {
+        isSuccess && setFileList([])
+    }, [isSuccess])
     useEffect(() => {
         defaultFileList && setFileList(defaultFileList)
     }, [])
@@ -91,7 +94,6 @@ export const ImageFormItem: FC<TUploadFormProps> = ({ name, label, defaultFileLi
             label={label}
             getValueFromEvent={normFile}
         >
-            <ImgCrop>
             <Upload
                 listType="picture-card"
                 fileList={fileList}
@@ -111,7 +113,6 @@ export const ImageFormItem: FC<TUploadFormProps> = ({ name, label, defaultFileLi
                 </button>
                 )}
             </Upload>
-            </ImgCrop>
         </Form.Item>
         {previewImage && (
                 <Image

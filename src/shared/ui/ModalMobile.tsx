@@ -23,7 +23,7 @@ export const ModalMobile: FC<TModalMobileProps> = ({ isOpen, onClose, title, chi
             className={classNames(
                 isOpen ? "opacity-100 visible" : "opacity-0 invisible",
                 "z-10 bg-black/30 fixed inset-0",
-                "transition-all duration-200 ease-in"
+                "transition-opacity duration-300 ease-in"
             )}
             onClick={handleCloseModal}
         >
@@ -33,8 +33,8 @@ export const ModalMobile: FC<TModalMobileProps> = ({ isOpen, onClose, title, chi
                     "fixed bottom-[-1px] left-[-1px] right-[-1px] z-10",
                     "bg-background",
                     "rounded-t-3xl py-4 px-5",
-                    "transition-all duration-200 ease-in",
-                    "border border-foreground"
+                    "transition-translate duration-300 ease-in",
+                    "border border-[#818699]"
                 )}
                 onClick={handleClickModal}
             >

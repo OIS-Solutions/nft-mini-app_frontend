@@ -4,12 +4,12 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #212121;
+  --foreground: #0E1420;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: linear-gradient(0deg, rgb(9, 15, 49) 25%, rgb(26, 28, 68) 45%, rgb(19, 22, 56) 60%, rgb(9, 15, 49) 75%);
+    --background: #0E1420;
     --foreground: #ededed;
   }
 }
@@ -44,4 +44,29 @@ body {
       padding-left: 20px;
       padding-right: 20px
   }
+}
+
+.striped-text {
+  font-family: 'Rubik One', sans-serif;
+  font-size: 50px;
+  text-transform: uppercase;
+  background: repeating-linear-gradient(white, white 2px, #7AB4E2 2px, #7AB4E2 3px);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #183D58;
+  display: table;
+  margin: 20px auto;    
+}
+
+.gradient-text {
+  font-family: 'Rubik One', sans-serif;
+  font-size: 50px;
+  text-transform: uppercase;
+  background: linear-gradient(0deg, #DB8EDE 33%, #FFF1E3 66%, #A6FFFA);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #0B2349;
+  display: table;
+  margin: 20px auto;
+  line-height: 1.2;
 }
