@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@tonconnect/ui-react": "^2.0.9",
+    "@types/telegram-web-app": "^7.10.1",
     "antd": "^5.21.2",
     "antd-img-crop": "^4.23.0",
     "axios": "^1.7.7",
