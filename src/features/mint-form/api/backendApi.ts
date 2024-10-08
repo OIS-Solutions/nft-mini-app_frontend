@@ -24,7 +24,8 @@ export class NftService {
     }
 
     public mintNft = async (mintData: TMintData) => {
-
+        console.log(222, mintData);
+        
         try {
             const response = await api.post<TMintResponse>(apiRoutes.nft.baseRoute, mintData)
             const nft = response.data

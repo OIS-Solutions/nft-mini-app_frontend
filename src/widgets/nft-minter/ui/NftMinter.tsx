@@ -7,14 +7,16 @@ import { MintForm } from "@/features/mint-form/ui/MintForm"
 import { CustomButton } from "@/shared/ui/CustomButton"
 import { ModalMobile } from "@/shared/ui/ModalMobile"
 import { message } from "antd"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export const NftMinter = () => {
-    const [openModal, setOpenModal] = useState(true);
+    const [openModal, setOpenModal] = useState(false);
     const [pending, setPending] = useState(false);
     const [isSuccess, setSuccess] = useState(false);
 
     const handleSubmitForm = async (values: TNftFormValues) => {
+        console.log(111, values);
+        
         setPending(true);
         try {
             const uri = await uriApi.uploadUri(setNftUri({ ...values, image: values.image[0] }))
@@ -42,6 +44,9 @@ export const NftMinter = () => {
     const handleCloseModal = () => {
         setOpenModal(false)
     }
+    useEffect(() => {
+        console.log(222, window.Telegram.WebApp.initData);
+    }, [])
     return (
         <section className="flex flex-col items-center pt-[25%]">
             <div className="container">
