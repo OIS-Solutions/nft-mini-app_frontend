@@ -4,7 +4,7 @@ import { UserAvatar } from "./UserAvatar"
 
 export const UserCard = () => {
     const [username, setUsername] = useState<string>()
-    const WebApp = window?.Telegram?.WebApp
+    const WebApp = typeof window !== "undefined" && window?.Telegram?.WebApp
     useEffect(() => {
         if (WebApp) {
             setUsername(WebApp.initDataUnsafe.user?.first_name)
