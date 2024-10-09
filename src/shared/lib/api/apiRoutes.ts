@@ -3,6 +3,7 @@ export const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 export const apiEndPoint = '/api'
 
 export const apiRoutes = {
+	auth: 'api/user',
 	nft: {
 		baseRoute: 'api/nft',
 		mint: 'api/nft/mint',

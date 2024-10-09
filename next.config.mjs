@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const API_URL = process.env.API_URL || "http://localhost:3000"
-console.log(222, API_URL);
 
 const nextConfig = {
     reactStrictMode: true,
@@ -26,7 +25,7 @@ const nextConfig = {
     images: {
       remotePatterns: [
         {
-          hostname: 'storage.googleapis.com'
+          hostname: 'api.telegram.org'
         },
         {
           hostname: 'i.imghippo.com'

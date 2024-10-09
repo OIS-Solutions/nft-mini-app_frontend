@@ -1,5 +1,6 @@
 "use client"
-import { nftApi } from "@/features/mint-form/api/backendApi"
+import { initData } from "@/app/_providers/WebAppProvider"
+import { nftApi } from "@/features/mint-form/api/mintApi"
 import { uriApi } from "@/features/mint-form/api/uriApi"
 import { setNftUri } from "@/features/mint-form/helpers/setNftUri"
 import { TNftFormValues } from "@/features/mint-form/types"
@@ -13,15 +14,14 @@ export const NftMinter = () => {
     const [openModal, setOpenModal] = useState(false);
     const [pending, setPending] = useState(false);
     const [isSuccess, setSuccess] = useState(false);
-
+    //const initData = window?.Telegram?.WebApp.initData
     const handleSubmitForm = async (values: TNftFormValues) => {
-        console.log(111, values);
-        
+        console.log(111, values, initData);
         setPending(true);
         try {
             const uri = await uriApi.uploadUri(setNftUri({ ...values, image: values.image[0] }))
-            if (uri) {
-                const nftData = await nftApi.mintNft({tgUser: "maxsvk", uriUrl: uri})
+            if (uri && initData) {
+                const nftData = await nftApi.mintNft({initData, uriUrl: uri})
                 if (nftData) {
                     setSuccess(true);
                     handleCloseModal()
@@ -45,7 +45,7 @@ export const NftMinter = () => {
         setOpenModal(false)
     }
     useEffect(() => {
-        console.log(222, window.Telegram.WebApp.initData);
+        console.log(222, initData);
     }, [])
     return (
         <section className="flex flex-col items-center pt-[25%]">

@@ -1,19 +1,13 @@
 import axios from "axios"
 import { apiRoutes } from "@/shared/lib/api/apiRoutes";
-import { TNftItemUri } from "@/shared/types/nft";
 
 const api = axios.create();
 
-type TMintResponse = {
-    data: any
+type TAuthResponse = {
+    token: string
 }
 
-type TMintData = {
-    tgUser: string,
-    uriUrl: string,
-}
-
-export class NftService {
+export class AuthService {
 
     private handleError(error: any, action: string): void {
         if (axios.isAxiosError(error) && error.response) {
@@ -23,15 +17,13 @@ export class NftService {
         }
     }
 
-    public mintNft = async (mintData: TMintData) => {
-        console.log(222, mintData);
-        
+    public login = async (initData: string) => {
         try {
-            const response = await api.post<TMintResponse>(apiRoutes.nft.baseRoute, mintData)
-            const nft = response.data
+            const response = await api.post<TAuthResponse>(apiRoutes.auth, {initData})
+            const nft = response
             return nft
         } catch (error: unknown) {
-            this.handleError(error, 'Mint NFT');
+            this.handleError(error, 'login');
             return null;
         }
     }
@@ -39,4 +31,4 @@ export class NftService {
 
 }
 
-export const nftApi = new NftService();
+export const authApi = new AuthService();

@@ -4,6 +4,7 @@ import "./globals.css";
 import { classNames } from "@/shared/lib/helpers/classNames";
 import Script from "next/script";
 import { RootProvider } from "./_providers";
+import { Header } from "@/widgets/header/ui/Header";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -36,7 +37,7 @@ export default function RootLayout({
       >
         <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive"></Script>
         <RootProvider>
-        <header></header>
+        <Header />
         <main className="flex-1">{children}</main>
         <footer></footer>
         </RootProvider>
