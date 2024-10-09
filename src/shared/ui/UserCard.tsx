@@ -9,7 +9,7 @@ export const UserCard = () => {
         if (WebApp) {
             setUsername(WebApp.initDataUnsafe.user?.first_name)
         }
-    }, [WebApp])
+    }, [])
     if (!WebApp) return null
     return (
         <div className="flex flex-col items-center gap-1">
