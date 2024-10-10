@@ -54,10 +54,27 @@ export type TNftRenderList = {
     chainId: number;
 }[]
 
+
+
 export type TNftItemUri = {
     name: string,
     description: string,
     image: string,
     image_url?: string,
-    attributes?: {[key: string]: any}[]
+    attributes?: { [key: string]: any }[]
+}
+
+export type TUriResponse = {
+    record: TNftItemUri,
+    metadata: object
+}
+
+export type NftDbItem = {
+    id: number;
+    tg_id: number;
+    contract_address: string;
+    chain_id: number;
+    token_id: number;
+    uriUrl: string;
+    uri: TUriResponse
 }
