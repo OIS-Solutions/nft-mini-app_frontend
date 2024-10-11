@@ -2,6 +2,7 @@ import axios from "axios"
 import { apiRoutes } from "@/shared/lib/api/apiRoutes";
 
 const api = axios.create();
+api.defaults.headers["common"]["ngrok-skip-browser-warning"] = "any_value"
 
 type TAuthResponse = {
     token: string

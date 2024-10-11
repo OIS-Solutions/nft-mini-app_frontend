@@ -4,6 +4,8 @@ import { DtoResponse } from "@/shared/types/dto";
 import { NftDbItem, TNftItemUri } from "@/shared/types/nft";
 
 const api = axios.create();
+api.defaults.headers["common"]["ngrok-skip-browser-warning"] = "any_value"
+
 
 export class NftListService {
 
