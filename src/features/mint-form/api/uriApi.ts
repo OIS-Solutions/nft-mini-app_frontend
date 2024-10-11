@@ -31,11 +31,11 @@ export class UriService {
     public uploadUri = async (uriData: TNftItemUri) => {
 
         try {
-            const response = await api.post<TUriApiResponse>(apiRoutes.nftItemApi.baseRoute, uriData, {
+            const response = await api.post<TUriApiResponse>(apiRoutes.nftItemApi.baseRoute, uriData /* {
                 headers: {
                     "X-Bin-Name": uriData.name
                 }
-            })
+            } */)
             const uriId = response.data.metadata.id
             return `${uriUrl}/${uriId}`
         } catch (error: unknown) {

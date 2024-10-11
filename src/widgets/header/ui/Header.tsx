@@ -5,7 +5,7 @@ export const Header = () => {
         <header className="pt-10">
             <div className="container">
                 <div className="flex justify-center">
-                    {/* <UserCard /> */}
+                    <UserCard />
                 </div>
             </div>
         </header>
