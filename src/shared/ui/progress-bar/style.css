@@ -1,0 +1,45 @@
+/* CSS custom property */
+@property --angle {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+}
+
+@property --hue {
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 0;
+}
+
+.conic-effect {
+    --color: hsl(177, 78%, 41%);
+    background: conic-gradient(var(--color) var(--angle), transparent calc(var(--angle)));
+}
+
+/* Conic Multicolor Effect */
+.conic-multicolor-effect {
+    --color: hsl(var(--hue, 0), 94%, 61%);
+    background: conic-gradient(var(--color) var(--angle), transparent calc(var(--angle)));
+}
+
+@keyframes conic-effect {
+    0% {
+        --angle: -1deg;
+    }
+
+    100% {
+        --angle: 360deg;
+    }
+}
+
+@keyframes conic-multi-color-effect {
+    0% {
+        --angle: -1deg;
+        --hue: 31;
+    }
+
+    100% {
+        --angle: 360deg;
+        --hue: 211;
+    }
+}
