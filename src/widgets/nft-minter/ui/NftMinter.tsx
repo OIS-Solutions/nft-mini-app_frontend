@@ -1,5 +1,5 @@
 "use client"
-import { initData } from "@/app/_providers/WebAppProvider"
+import { initDataMock } from "@/app/_providers/WebAppProvider"
 import { nftApi } from "@/features/mint-form/api/mintApi"
 import { uriApi } from "@/features/mint-form/api/uriApi"
 import { setNftUri } from "@/features/mint-form/helpers/setNftUri"
@@ -14,7 +14,7 @@ export const NftMinter = () => {
     const [openModal, setOpenModal] = useState(false);
     const [pending, setPending] = useState(false);
     const [isSuccess, setSuccess] = useState(false);
-    //const initData = window?.Telegram?.WebApp.initData
+    const initData = typeof window !== "undefined" ? window?.Telegram?.WebApp.initData : initDataMock
     const handleSubmitForm = async (values: TNftFormValues) => {
         console.log(111, values, initData);
         setPending(true);
