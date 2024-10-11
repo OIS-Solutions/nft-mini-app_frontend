@@ -71,6 +71,7 @@ export type TUriResponse = {
 
 export type NftDbItem = {
     id: number;
+    uuid: string;
     tg_id: number;
     contract_address: string;
     chain_id: number;

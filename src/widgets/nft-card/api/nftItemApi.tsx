@@ -4,6 +4,7 @@ import { DtoResponse } from "@/shared/types/dto";
 import { NftDbItem, TNftItemUri } from "@/shared/types/nft";
 
 const api = axios.create();
+export const API_URL = process.env.API_URL
 
 export class NftListService {
 
@@ -15,21 +16,19 @@ export class NftListService {
         }
     }
 
-    public getUserNftList = async (tg_id: number) => {
+    public getNftItem = async (uuid: string) => {
         try {
-            const response = await api.get<DtoResponse<NftDbItem>[]>(apiRoutes.nft.baseRoute, { params: { tg_id } });
-            if (response.data.length !== 0) {
-                return response.data;
-            }
-            return []
+            const url = `${API_URL}/${apiRoutes.nft.serverRoute}/${uuid}`
+            const response = await api.get<DtoResponse<NftDbItem>>(url);
+            return response.data
 
         } catch (error: unknown) {
             this.handleError(error, 'Get NFTs');
-            return [];
+            return undefined;
         }
     };
 
 
 }
 
-export const nftListApi = new NftListService();
+export const nftItemApi = new NftListService();

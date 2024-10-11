@@ -5,6 +5,7 @@ export const apiEndPoint = '/api'
 export const apiRoutes = {
 	auth: 'api/user',
 	nft: {
+		serverRoute: 'nft',
 		baseRoute: 'api/nft',
 		mint: 'api/nft/mint',
 	},
