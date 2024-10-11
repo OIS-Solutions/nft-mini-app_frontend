@@ -25,19 +25,19 @@ export const MintForm: FC<TMintFormProps> = ({ onSubmit, disabled, loading, isSu
             disabled={disabled}
             className="dark:text-white text-background"
         >
-            <Form.Item label={'Name'} className="" name={'name'} >
+            <Form.Item /* label={'Name'} */ className="" name={'name'} required>
                 <Input placeholder={"Enter your NFT name"} disabled={false} required />
             </Form.Item>
-            <Form.Item label={'Description'} className="" name={'description'} >
+            <Form.Item /* label={'Description'} */ className="" name={'description'} required>
                 <Input placeholder={"Enter your NFT name description"} disabled={false} required />
             </Form.Item>
             <ImageFormItem
                 name="image"
-                label="Image"
+                /* label="Image" */
                 handleFormChange={handleFormChange}
                 isSuccess={isSuccess}
             />
-            <Button htmlType="submit" type="primary" loading={loading} disabled={!isFormChanged}>Submit</Button>
+            <Button htmlType="submit" type="primary" loading={loading} /* disabled={!isFormChanged} */>Submit</Button>
         </Form>
     )
 }

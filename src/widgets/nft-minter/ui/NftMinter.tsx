@@ -14,9 +14,9 @@ export const NftMinter = () => {
     const [openModal, setOpenModal] = useState(false);
     const [pending, setPending] = useState(false);
     const [isSuccess, setSuccess] = useState(false);
-    const initData = typeof window !== "undefined" ? window?.Telegram?.WebApp.initData : initDataMock
+    const initData = typeof window !== "undefined" && window?.Telegram?.WebApp.initData ? window?.Telegram?.WebApp.initData : initDataMock
     const handleSubmitForm = async (values: TNftFormValues) => {
-        console.log(111, values, initData);
+        console.log(111, values, {initData});
         setPending(true);
         try {
             const uri = await uriApi.uploadUri(setNftUri({ ...values, image: values.image[0] }))

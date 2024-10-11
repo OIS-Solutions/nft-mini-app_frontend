@@ -16,7 +16,6 @@ export const NftList = () => {
             const tg_id = WebApp.initDataUnsafe.user?.id || 439572632
             if (tg_id) {
                 console.log("WebApp tg_id: ", WebApp.initDataUnsafe.user?.id);
-                
                 setLoading(true)
                 nftListApi
                     .getUserNftList(tg_id)
@@ -33,18 +32,18 @@ export const NftList = () => {
     return (
         <div className="my-10">
             <div className="container">
-                <div className="grid grid-cols-3 place-items-center">
+                <div className="grid grid-cols-3 place-items-center gap-3">
                     {nftList && nftList.map((nft) => (
-                        <div key={nft.contract_address+nft.token_id}>
+                        <div key={nft.contract_address+nft.token_id} className="relative">
                             <Link href={`/nft/${nft.uuid}`}>
                                 <Image
                                     src={nft.uri.record.image}
                                     alt="nft-image"
                                     width={100}
                                     height={100}
-                                    className="rounded-xl object-cover w-[100px] h-[100px]"
+                                    className="rounded-xl object-cover w-full aspect-square"
                                 />
-                                <h3 className="capitalize font-bold">{nft.uri.record.name} #<span>{nft.token_id}</span></h3>
+                                <span className="font-bold absolute bottom-0 right-1">#{nft.token_id}</span>
                             </Link>
                         </div>
                     ))}

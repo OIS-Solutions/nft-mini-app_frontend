@@ -11,7 +11,7 @@ import { FC, useEffect, useState } from "react";
 
 type TUploadFormProps = {
     name: string,
-    label: string,
+    label?: string,
     multiple?: boolean,
     defaultFileList?: UploadFile[] | undefined,
     handleFormChange: () => void,
@@ -93,6 +93,7 @@ export const ImageFormItem: FC<TUploadFormProps> = ({ name, label, defaultFileLi
             name={name}
             label={label}
             getValueFromEvent={normFile}
+            required
         >
             <Upload
                 listType="picture-card"
