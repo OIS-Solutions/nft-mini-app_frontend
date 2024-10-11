@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const API_URL = process.env.API_URL || "http://localhost:3000"
+const API_URL = process.env.API_URL || "https://dc07-90-188-83-170.ngrok-free.app"
 
 const nextConfig = {
     reactStrictMode: true,

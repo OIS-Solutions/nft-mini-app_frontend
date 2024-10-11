@@ -4,7 +4,7 @@ import { DtoResponse } from "@/shared/types/dto";
 import { NftDbItem, TNftItemUri } from "@/shared/types/nft";
 
 const api = axios.create();
-export const API_URL = process.env.API_URL
+export const API_URL = process.env.API_URL || "https://dc07-90-188-83-170.ngrok-free.app"
 
 export class NftListService {
 
