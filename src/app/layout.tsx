@@ -21,7 +21,6 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "Boops NFT App",
   description: "NFT One click Factory",
-  viewport: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
 };
 
 export const viewport: Viewport = {
