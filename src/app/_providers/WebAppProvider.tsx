@@ -1,19 +1,23 @@
 'use client'
 
 import { authApi } from "@/features/auth/api/authApi";
+import { useWebAppData } from "@/shared/hooks/useWebAppData";
 import { tokenCookie } from "@/shared/lib/helpers/cookies";
 import { HttpStatusCode } from "axios";
+import { useRouter } from "next/navigation";
 import { ReactNode, useEffect } from "react";
 export const initDataMock = "query_id=AAGYWDMaAAAAAJhYMxo_yYQL&user=%7B%22id%22%3A439572632%2C%22first_name%22%3A%22Maxim%22%2C%22last_name%22%3A%22Mhlko%22%2C%22username%22%3A%22maxsvk%22%2C%22language_code%22%3A%22ru%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1728443094&hash=3123qwedesadxsa"
 
 export const WebAppProvider = ({ children }: { children:ReactNode }) => {
-    const WebApp = typeof window !== "undefined" && window?.Telegram?.WebApp
-    useEffect(() => {
-        const initData = WebApp && WebApp?.initData || initDataMock
+    //const WebApp = typeof window !== "undefined" && window?.Telegram?.WebApp
+    const { initData, startParams } = useWebAppData();
+    const router = useRouter();
 
-        if (initData) {
+    useEffect(() => {
+        //const initData = WebApp && WebApp?.initData || initDataMock
+        if (initData || initDataMock) {
             authApi
-                .login(initData)
+                .login(initData || initDataMock)
                 .then(response => {
                     if (response?.data) {
                         if (response?.status === HttpStatusCode.Ok) {
@@ -26,7 +30,10 @@ export const WebAppProvider = ({ children }: { children:ReactNode }) => {
 
                 })
         }
-    }, [])
+        if (startParams) {
+            startParams.nft && router.push(`/nft/${startParams.nft}`)
+        }
+    }, [initData])
     return (
         <>{children}</>
     )

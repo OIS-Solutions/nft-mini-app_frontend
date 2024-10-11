@@ -52,7 +52,7 @@ export const NftMinter = () => {
             <div className="container">
                 <div className="flex flex-col gap-10">
                     <h2 className="gradient-text text-center font-bold text-2xl">Create your unique NFT now!</h2>
-                    <CustomButton color="purple" onClick={handleOpenModal}>Create</CustomButton>
+                    <CustomButton color="purple" onClick={handleOpenModal}>Boop NFT</CustomButton>
                 </div>
             </div>
             <ModalMobile title="Mint NFT" isOpen={openModal} onClose={handleCloseModal}>
