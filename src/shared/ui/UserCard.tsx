@@ -1,19 +1,14 @@
 'use client'
-import { useEffect, useState } from "react"
 import { UserAvatar } from "./UserAvatar"
+import { useWebAppData } from "../hooks/useWebAppData"
 
 export const UserCard = () => {
-    const [username, setUsername] = useState<string>()
-    const WebApp = typeof window !== "undefined" && window?.Telegram?.WebApp
-    useEffect(() => {
-        if (WebApp) {
-            setUsername(WebApp.initDataUnsafe.user?.first_name)
-        }
-    }, [])
+    const {initDataUnsafe} = useWebAppData();
+    const name = initDataUnsafe?.user?.first_name || initDataUnsafe?.user?.username
     return (
         <div className="flex flex-col items-center gap-1">
-           {/*  <UserAvatar /> */}
-            <span className="font-bold">{username}</span>
+            <UserAvatar />
+            {name && <span className="font-bold">{name}</span>}
         </div>
     )
 }

@@ -18,3 +18,4 @@ export class CookieValue {
 }
 
 export const tokenCookie = new CookieValue("token");
+export const avatarCookie = new CookieValue("avatar");

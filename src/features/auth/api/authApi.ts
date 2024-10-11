@@ -5,7 +5,10 @@ const api = axios.create();
 api.defaults.headers["common"]["ngrok-skip-browser-warning"] = "any_value"
 
 type TAuthResponse = {
-    token: string
+    token: string,
+    user: {
+        avatar: string,
+    }
 }
 
 export class AuthService {
@@ -21,8 +24,7 @@ export class AuthService {
     public login = async (initData: string) => {
         try {
             const response = await api.post<TAuthResponse>(apiRoutes.auth, {initData})
-            const nft = response
-            return nft
+            return response
         } catch (error: unknown) {
             this.handleError(error, 'login');
             return null;
