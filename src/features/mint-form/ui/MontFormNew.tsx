@@ -84,6 +84,7 @@ export const NFTForm: FC<TNftFormProps> = ({ onSubmit }) => {
                     <input
                         type="text"
                         inputMode="text"
+                        enterKeyHint='next'
                         className={`mt-1 block w-full px-3 py-2 bg-gray-100 border ${errors.name ? 'border-red-300' : 'border-gray-300'} rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300`}
                         {...register('name', { required: true, maxLength: 100 })}
                         placeholder="Enter NFT name"
