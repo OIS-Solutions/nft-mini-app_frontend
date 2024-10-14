@@ -7,15 +7,23 @@ import Image from 'next/image';
 import { TFormData } from '../types';
 
 type TNftFormProps = {
-    onSubmit: (data:TFormData) => void;
+    onSubmit: (data: TFormData) => void;
 }
 
-export const NFTForm:FC<TNftFormProps> = ({ onSubmit }) => {
+export const NFTForm: FC<TNftFormProps> = ({ onSubmit }) => {
     const { register, handleSubmit, formState: { errors }, setError, clearErrors, reset } = useForm<TFormData>();
     //const [imageUrl, setImageUrl] = useState<string | null>(null);
     const [previewImage, setPreviewImage] = useState<string>();
     const [loading, setLoading] = useState(false);
     const [imageFile, setImageFile] = useState<File>();
+
+    // Функция для скрытия клавиатуры — убирает фокус
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter' || e.key === 'Return') { // Для мобильных клавиатур
+            e.preventDefault(); // Отменяем стандартное поведение (отправка формы)
+            (e.target as HTMLInputElement).blur(); // Убираем фокус с инпута, что скрывает клавиатуру
+        }
+    };
 
     // Предварительный просмотр изображения
     const handleImagePreview = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,9 +83,12 @@ export const NFTForm:FC<TNftFormProps> = ({ onSubmit }) => {
                 <div className="mb-4">
                     <input
                         type="text"
+                        inputMode="text"
                         className={`mt-1 block w-full px-3 py-2 bg-gray-100 border ${errors.name ? 'border-red-300' : 'border-gray-300'} rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300`}
                         {...register('name', { required: true, maxLength: 100 })}
                         placeholder="Enter NFT name"
+                        autoComplete="off"
+                        onKeyDown={handleKeyDown}
                     />
                     {errors.name?.type === 'required' && <p className="text-red-300 text-sm mt-1">Name is required.</p>}
                     {errors.name?.type === 'maxLength' && <p className="text-red-300 text-sm mt-1">Name cannot exceed 100 characters.</p>}
