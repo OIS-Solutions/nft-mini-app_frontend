@@ -1,6 +1,6 @@
 export type TNftFormValues = {
     name: string,
-    description: string,
+    description?: string,
     image: string[]
 }
 
@@ -19,3 +19,12 @@ export type InitDataUnsafe = {
     auth_date: number;
     hash: string;
 };
+
+export type TFormDataDto = {
+    name: string;
+    image: string;
+}
+export type TFormData = {
+    name: string;
+    imageFile: File;
+}

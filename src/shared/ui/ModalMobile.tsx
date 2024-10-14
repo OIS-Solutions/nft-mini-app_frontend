@@ -34,7 +34,7 @@ export const ModalMobile: FC<TModalMobileProps> = ({ isOpen, onClose, title, chi
                     "bg-background",
                     "rounded-t-3xl py-4 px-5",
                     "transition-translate duration-300 ease-in",
-                    "border border-[#818699]"
+                    "border border-gray-300"
                 )}
                 onClick={handleClickModal}
             >

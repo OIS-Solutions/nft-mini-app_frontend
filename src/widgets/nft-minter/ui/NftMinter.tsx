@@ -1,25 +1,35 @@
 "use client"
 import { initDataMock } from "@/app/_providers/WebAppProvider"
+import { imageApi } from "@/features/mint-form/api/imageApi"
 import { nftApi } from "@/features/mint-form/api/mintApi"
 import { uriApi } from "@/features/mint-form/api/uriApi"
 import { setNftUri } from "@/features/mint-form/helpers/setNftUri"
-import { TNftFormValues } from "@/features/mint-form/types"
-import { MintForm } from "@/features/mint-form/ui/MintForm"
+import { TFormData } from "@/features/mint-form/types"
+import { NFTForm } from "@/features/mint-form/ui/MontFormNew"
 import { CustomButton } from "@/shared/ui/CustomButton"
 import { ModalMobile } from "@/shared/ui/ModalMobile"
 import { message } from "antd"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 export const NftMinter = () => {
     const [openModal, setOpenModal] = useState(false);
     const [pending, setPending] = useState(false);
     const [isSuccess, setSuccess] = useState(false);
     const initData = typeof window !== "undefined" && window?.Telegram?.WebApp.initData ? window?.Telegram?.WebApp.initData : initDataMock
-    const handleSubmitForm = async (values: TNftFormValues) => {
-        console.log(111, values, {initData});
+    const handleSubmitForm = async (values: TFormData) => {
+        handleCloseModal()
         setPending(true);
         try {
-            const uri = await uriApi.uploadUri(setNftUri({ ...values, image: values.image[0] }))
+            const formData = new FormData();
+            formData.append('file', values.imageFile);
+            const imageUploadResponse = await imageApi.uploadImage(formData);
+            if (!imageUploadResponse) throw new Error("Image upload error");
+            const uploadedImageUrl = imageUploadResponse?.data.view_url;
+            const nftDataDto = {
+                name: values.name,
+                image: uploadedImageUrl,
+            };
+            const uri = await uriApi.uploadUri(setNftUri(nftDataDto))
             if (uri && initData) {
                 const nftData = await nftApi.mintNft({initData, uriUrl: uri})
                 if (nftData) {
@@ -34,9 +44,6 @@ export const NftMinter = () => {
             setSuccess(false);
         }
         setPending(false);
-
-
-        //setAmountValue(BigInt(1))
     }
     const handleOpenModal = () => {
         setOpenModal(true)
@@ -44,19 +51,16 @@ export const NftMinter = () => {
     const handleCloseModal = () => {
         setOpenModal(false)
     }
-    useEffect(() => {
-        console.log(222, initData);
-    }, [])
     return (
-        <section className="flex flex-col items-center pt-[25%]">
+        <section className="flex flex-col items-center">
             <div className="container">
                 <div className="flex flex-col gap-10">
                     <h2 className="gradient-text text-center font-bold text-2xl">Create your unique NFT now!</h2>
-                    <CustomButton color="purple" onClick={handleOpenModal}>Boop NFT</CustomButton>
+                    <CustomButton color="purple" extraClass="text-white" onClick={handleOpenModal}>Boop NFT</CustomButton>
                 </div>
             </div>
             <ModalMobile title="Mint NFT" isOpen={openModal} onClose={handleCloseModal}>
-                <MintForm onSubmit={handleSubmitForm} loading={pending} isSuccess={isSuccess}/>
+                <NFTForm onSubmit={handleSubmitForm} />
             </ModalMobile>
         </section>
     )

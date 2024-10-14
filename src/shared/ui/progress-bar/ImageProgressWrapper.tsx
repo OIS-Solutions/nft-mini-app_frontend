@@ -3,7 +3,11 @@ import { FC, useEffect, useRef, useState } from "react";
 import { classNames } from "@/shared/lib/helpers/classNames";
 import Image from "next/image";
 
-const ProgressBar: FC = () => {
+type TImageProgressWrapperProps = {
+    loading: boolean,
+    imageUrl: string | undefined,
+}
+export const ImageProgressWrapper: FC<TImageProgressWrapperProps> = ({ imageUrl, loading }) => {
     const [isProgressing, setIsProgressing] = useState<boolean>(false);
     const [isCompleted, setIsCompleted] = useState<boolean>(false);
     const [isImageLoaded, setIsImageLoaded] = useState(false);
@@ -12,7 +16,6 @@ const ProgressBar: FC = () => {
     const animationRef = useRef<number>(0); // Ссылка для requestAnimationFrame
 
     const percentage = Math.round((angle / 360) * 100); // Вычисляем проценты
-    const imageUrl = "https://i.imghippo.com/files/huQ0U1728667022.jpg";
 
     const handleStart = () => {
         // Если анимация уже идет, ничего не делаем
@@ -56,42 +59,37 @@ const ProgressBar: FC = () => {
         };
     }, []);
 
+    useEffect(() => {
+        loading && handleStart()
+    }, [loading])
+
     const conicEffectStyle = {
         position: "relative",
         zIndex: 1,
         borderRadius: "21.5px",
-        background: `conic-gradient(#22c55e ${angle}deg, transparent ${angle}deg)` // Используем шаблонные строки
+        background: `conic-gradient(#4f46e5 ${angle}deg, transparent ${angle}deg)` // Используем шаблонные строки
     } as React.CSSProperties;
 
     return (
-        <div className="flex flex-col items-center mt-10">
-            <button onClick={handleStart} className="mb-4 p-2 bg-blue-500 text-white rounded">
-                Старт
-            </button>
-            <button onClick={() => setAngle(Math.random() * 360)} className="mb-4 p-2 bg-blue-500 text-white rounded">
-            random
-            </button>
-            <div className="conic-effect w-48 h-48 p-1 flex justify-center items-center" style={conicEffectStyle}>
-                <div className="relative w-full h-full bg-background border border-gray-300 rounded-[18px] flex items-center justify-center overflow-hidden">
+        <div className="flex flex-col items-center w-full h-full">
+            <div className="conic-effect w-full h-full p-1 flex justify-center items-center" style={conicEffectStyle}>
+                <div className="relative w-full h-full bg-background border border-gray-300 shadow-sm rounded-[18px] flex items-center justify-center overflow-hidden">
                     <div className="absolute text-green-500 font-bold">
                         {isProgressing && <span>{percentage}%</span>} {/* Упрощенное условие */}
                     </div>
-                    <Image
+                    {imageUrl && <Image
                         src={imageUrl}
                         alt="image"
                         width={100}
                         height={100}
                         className={classNames(
-                            "w-full aspect-square object-cover",
+                            "w-full aspect-square object-contain",
                             "transition duration-500 ease-in-out",
-                            isImageLoaded && isCompleted ? "opacity-100" : "opacity-0"
                         )}
                         onLoad={() => setIsImageLoaded(true)}
-                    />
+                    />}
                 </div>
             </div>
         </div>
     );
 };
-
-export default ProgressBar;
