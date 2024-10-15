@@ -28,7 +28,7 @@ export const WebAppProvider = ({ children }: { children:ReactNode }) => {
                             console.log("user is Created");
                         }
                         tokenCookie.setValue(response?.data.token);
-                        userCookie.setValue(JSON.stringify({avatar: response?.data.user.avatar, name: response?.data.user.tgId}))
+                        userCookie.setValue(JSON.stringify({avatar: response?.data.user.avatar, tgId: response?.data.user.tgId}))
                     }
 
                 })
