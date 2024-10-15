@@ -13,10 +13,10 @@ export const UserCard = () => {
     useEffect(() => {
         const cookieUserJson = userCookie.getValue()
         const cookieUser = cookieUserJson ? JSON.parse(cookieUserJson) as TCookieUserData : undefined
-        if (cookieUser?.tgId && cookieUser.tgId === initDataUnsafe?.user?.id) {
+        if (cookieUser?.tgId && cookieUser.tgId === initDataUnsafe?.user?.id && cookieUser.avatar) {
             setAvatar(cookieUser.avatar)
         }
-    }, [initDataUnsafe?.user?.id])
+    }, [initDataUnsafe?.user?.id,])
 
     return (
         <div className="flex flex-col items-center gap-1">

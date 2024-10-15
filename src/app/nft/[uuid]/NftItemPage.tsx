@@ -12,6 +12,7 @@ export const NftItemPage:FC<NftItemServerPageProps> = ({nftItemData}) => {
     const [nftItem, setNftItem] = useState<NftDbItem>()
     useEffect(() => {
         webApp?.BackButton.show()
+        console.log(777, webApp,  webApp?.BackButton.show);
         setNftItem(nftItemData)
     }, [nftItemData])
     return (

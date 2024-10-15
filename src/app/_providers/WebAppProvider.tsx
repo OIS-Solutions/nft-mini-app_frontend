@@ -30,7 +30,6 @@ export const WebAppProvider = ({ children }: { children:ReactNode }) => {
                         tokenCookie.setValue(response?.data.token);
                         userCookie.setValue(JSON.stringify({avatar: response?.data.user.avatar, tgId: response?.data.user.tgId}))
                     }
-
                 })
         }
         if (startParams) {
