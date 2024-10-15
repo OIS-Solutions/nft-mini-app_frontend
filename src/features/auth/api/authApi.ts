@@ -2,7 +2,9 @@ import axios from "axios"
 import { apiRoutes } from "@/shared/lib/api/apiRoutes";
 import { TCookieUserData } from "../types";
 
-const api = axios.create();
+const api = axios.create({
+    baseURL: "/",
+});
 api.defaults.headers["common"]["ngrok-skip-browser-warning"] = "any_value"
 
 type TAuthResponse = {

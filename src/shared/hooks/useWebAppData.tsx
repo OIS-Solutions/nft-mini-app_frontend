@@ -12,9 +12,11 @@ export const useWebAppData = () => {
         startParams?: TStartParams;
     }>({});
 
+
     useEffect(() => {
         if (typeof window !== "undefined" && window?.Telegram?.WebApp) {
             const WebApp = window.Telegram.WebApp;
+            console.log("WebApp", WebApp);
             const startParams = WebApp.initDataUnsafe?.start_param
                 ? parseStartParam(WebApp.initDataUnsafe.start_param)
                 : undefined;

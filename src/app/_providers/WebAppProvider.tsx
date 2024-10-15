@@ -16,7 +16,10 @@ export const WebAppProvider = ({ children }: { children:ReactNode }) => {
 
     useEffect(() => {
         //const initData = WebApp && WebApp?.initData || initDataMock
+        console.log(100, webApp);
+        
         webApp?.expand();
+        //todo убрать initDataMock
         if (initData || initDataMock) {
             authApi
                 .login(initData || initDataMock)
