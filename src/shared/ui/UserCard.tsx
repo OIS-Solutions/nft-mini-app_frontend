@@ -9,14 +9,16 @@ export const UserCard = () => {
     const {initDataUnsafe} = useWebAppData();
     const name = initDataUnsafe?.user?.first_name || initDataUnsafe?.user?.username
     const [avatar, setAvatar] = useState<string>()
+    const cookieUserJson = userCookie.getValue()
+    const cookieUser = cookieUserJson ? JSON.parse(cookieUserJson) as TCookieUserData : undefined
+    console.log(333, {avatar});
 
     useEffect(() => {
-        const cookieUserJson = userCookie.getValue()
-        const cookieUser = cookieUserJson ? JSON.parse(cookieUserJson) as TCookieUserData : undefined
+        console.log(888, cookieUser?.tgId, initDataUnsafe?.user?.id, cookieUser?.avatar);
         if (cookieUser?.tgId && cookieUser.tgId === initDataUnsafe?.user?.id && cookieUser.avatar) {
             setAvatar(cookieUser.avatar)
         }
-    }, [initDataUnsafe?.user?.id,])
+    }, [initDataUnsafe?.user?.id, cookieUser])
 
     return (
         <div className="flex flex-col items-center gap-1">
