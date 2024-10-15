@@ -11,7 +11,6 @@ export const UserCard = () => {
     const [avatar, setAvatar] = useState<string>()
     const cookieUserJson = userCookie.getValue()
     const cookieUser = cookieUserJson ? JSON.parse(cookieUserJson) as TCookieUserData : undefined
-    console.log(333, {avatar});
 
     useEffect(() => {
         console.log(888, cookieUser?.tgId, initDataUnsafe?.user?.id, cookieUser?.avatar);

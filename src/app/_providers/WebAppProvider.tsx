@@ -14,6 +14,9 @@ export const WebAppProvider = ({ children }: { children:ReactNode }) => {
     const router = useRouter();
     const pathname = usePathname()
 
+    console.log(999, "WebApp", typeof window !== "undefined" && window?.Telegram?.WebApp);
+    
+
     useEffect(() => {
         //const initData = WebApp && WebApp?.initData || initDataMock
         console.log(100, webApp);
@@ -21,6 +24,8 @@ export const WebAppProvider = ({ children }: { children:ReactNode }) => {
         webApp?.expand();
         //todo убрать initDataMock
         if (initData || initDataMock) {
+            console.log("WebAppProvider initData: ", initData);
+            console.log("window.Telegram.WebApp.isExpanded", window.Telegram.WebApp.isExpanded);
             authApi
                 .login(initData || initDataMock)
                 .then(response => {
