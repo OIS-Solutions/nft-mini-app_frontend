@@ -1,24 +1,31 @@
+import { DtoResponse } from '@/shared/types/dto'
+import { NftDbItem } from '@/shared/types/nft'
+import { devtools } from 'zustand/middleware'
 import { createStore } from 'zustand/vanilla'
 
-export type CounterState = {
-  nftCount: number
+export type AppState = {
+  userNftCount: number,
+  userNftList: DtoResponse<NftDbItem>[]
 }
 
-export type CounterActions = {
-  incrementCount: () => void
+export type AppActions = {
+  incrementNftCount: () => void,
+  setUserNftList: (data: DtoResponse<NftDbItem>[]) => void,
 }
 
-export type CounterStore = CounterState & CounterActions
+export type AppStore = AppState & AppActions
 
-export const defaultInitState: CounterState = {
-    nftCount: 0,
+export const defaultInitState: AppState = {
+  userNftCount: 0,
+  userNftList: [],
 }
 
-export const createCounterStore = (
-  initState: CounterState = defaultInitState,
+export const createAppStore = (
+  initState: AppState = defaultInitState,
 ) => {
-  return createStore<CounterStore>()((set) => ({
-    ...initState,
-    incrementCount: () => set((state) => ({ nftCount: state.nftCount + 1 })),
-  }))
-}
+  return createStore<AppStore, [["zustand/devtools", never]]>(
+    devtools((set, get, store) => ({
+      ...initState,
+      incrementNftCount: () => set((state) => ({ userNftCount: state.userNftCount + 1 })),
+      setUserNftList: (data) => set((state) => ({ ...state, userNftList: data })),    }))
+)};

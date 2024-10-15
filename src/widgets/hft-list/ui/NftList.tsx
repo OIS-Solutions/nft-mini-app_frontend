@@ -5,12 +5,15 @@ import { nftListApi } from "../api/nftListApi"
 import { NftDbItem } from "@/shared/types/nft"
 import Image from "next/image"
 import Link from "next/link"
+import { useAppStore } from "@/app/_providers/StoreProvider"
 
 export const NftList = () => {
-    const [nftList, setNftList] = useState<NftDbItem[]>()
-    const [loading, setLoading] = useState(false)
+    //const [nftList, setNftList] = useState<NftDbItem[]>();
+    const [loading, setLoading] = useState(false);
+    const { setUserNftList, userNftList } = useAppStore(state => state)
     useEffect(() => {
         if (typeof window !== "undefined" && window.Telegram.WebApp) {
+            
             const WebApp = window.Telegram.WebApp;
             //todo убрать tg_id 439572632
             const tg_id = WebApp.initDataUnsafe.user?.id || 439572632
@@ -20,7 +23,8 @@ export const NftList = () => {
                 nftListApi
                     .getUserNftList(tg_id)
                     .then((data) => {
-                        setNftList(data)
+                        //setNftList(data)
+                        setUserNftList(data)
                     })
                     .finally(() => {
                         setLoading(false)
@@ -33,7 +37,7 @@ export const NftList = () => {
         <div className="my-10">
             <div className="container">
                 <div className="grid grid-cols-3 place-items-center gap-3">
-                    {nftList && nftList.map((nft) => (
+                    {userNftList && userNftList.map((nft) => (
                         <div key={nft.contract_address+nft.token_id} className="relative">
                             <Link href={`/nft/${nft.uuid}`}>
                                 <Image

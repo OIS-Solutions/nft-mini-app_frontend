@@ -1,14 +1,13 @@
 import axios from "axios"
 import { apiRoutes } from "@/shared/lib/api/apiRoutes";
+import { TCookieUserData } from "../types";
 
 const api = axios.create();
 api.defaults.headers["common"]["ngrok-skip-browser-warning"] = "any_value"
 
 type TAuthResponse = {
     token: string,
-    user: {
-        avatar: string,
-    }
+    user: TCookieUserData
 }
 
 export class AuthService {

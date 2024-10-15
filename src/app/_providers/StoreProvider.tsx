@@ -1,43 +1,43 @@
-// src/providers/counter-store-provider.tsx
+// src/providers/app-store-provider.tsx
 'use client'
 
-import { CounterStore, createCounterStore } from '@/model/store'
+import { AppStore, createAppStore } from '@/model/store'
 import { type ReactNode, createContext, useRef, useContext } from 'react'
 import { useStore } from 'zustand'
 
-export type CounterStoreApi = ReturnType<typeof createCounterStore>
+export type AppStoreApi = ReturnType<typeof createAppStore>
 
-export const CounterStoreContext = createContext<CounterStoreApi | undefined>(
+export const AppStoreContext = createContext<AppStoreApi | undefined>(
   undefined,
 )
 
-export interface CounterStoreProviderProps {
+export interface AppStoreProviderProps {
   children: ReactNode
 }
 
 export const StoreProvider = ({
   children,
-}: CounterStoreProviderProps) => {
-  const storeRef = useRef<CounterStoreApi>()
+}: AppStoreProviderProps) => {
+  const storeRef = useRef<AppStoreApi>()
   if (!storeRef.current) {
-    storeRef.current = createCounterStore()
+    storeRef.current = createAppStore()
   }
 
   return (
-    <CounterStoreContext.Provider value={storeRef.current}>
+    <AppStoreContext.Provider value={storeRef.current}>
       {children}
-    </CounterStoreContext.Provider>
+    </AppStoreContext.Provider>
   )
 }
 
-export const useCounterStore = <T,>(
-  selector: (store: CounterStore) => T,
+export const useAppStore = <T,>(
+  selector: (store: AppStore) => T,
 ): T => {
-  const counterStoreContext = useContext(CounterStoreContext)
+  const appStoreContext = useContext(AppStoreContext)
 
-  if (!counterStoreContext) {
-    throw new Error(`useCounterStore must be used within CounterStoreProvider`)
+  if (!appStoreContext) {
+    throw new Error(`useAppStore must be used within AppStoreProvider`)
   }
 
-  return useStore(counterStoreContext, selector)
+  return useStore(appStoreContext, selector)
 }

@@ -55,7 +55,7 @@ export const CustomButton = (
             case "transparent":
                 return "bg-transparent border"
             case "purple":
-            return "bg-gradient-to-b from-[#3956FF] to-[#6279FF] hover:from-[#6279FF] hover:to-[#3956FF]"
+            return "bg-gradient-to-b from-[#4f46e5] to-[#6366f1] hover:from-[#6279FF] hover:to-[#3956FF]"
             default:
                 return "bg-white text-black border-2 border-black";
         }

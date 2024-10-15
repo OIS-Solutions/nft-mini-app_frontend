@@ -2,7 +2,7 @@
 
 import { authApi } from "@/features/auth/api/authApi";
 import { useWebAppData } from "@/shared/hooks/useWebAppData";
-import { avatarCookie, tokenCookie } from "@/shared/lib/helpers/cookies";
+import { tokenCookie, userCookie } from "@/shared/lib/helpers/cookies";
 import { HttpStatusCode } from "axios";
 import { usePathname, useRouter } from "next/navigation";
 import { ReactNode, useEffect } from "react";
@@ -16,6 +16,7 @@ export const WebAppProvider = ({ children }: { children:ReactNode }) => {
 
     useEffect(() => {
         //const initData = WebApp && WebApp?.initData || initDataMock
+        webApp?.expand();
         if (initData || initDataMock) {
             authApi
                 .login(initData || initDataMock)
@@ -27,7 +28,7 @@ export const WebAppProvider = ({ children }: { children:ReactNode }) => {
                             console.log("user is Created");
                         }
                         tokenCookie.setValue(response?.data.token);
-                        avatarCookie.setValue(response?.data.user.avatar);
+                        userCookie.setValue(JSON.stringify({avatar: response?.data.user.avatar, name: response?.data.user.tgId}))
                     }
 
                 })

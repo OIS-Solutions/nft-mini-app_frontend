@@ -41,6 +41,7 @@ export const NftMinter = () => {
                 }
             }
         } catch (error) {
+            console.error(error);
             setSuccess(false);
         }
         setPending(false);

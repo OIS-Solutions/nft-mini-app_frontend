@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { classNames } from '@/shared/lib/helpers/classNames';
 import Image from 'next/image';
 import { TFormData } from '../types';
+import { CustomButton } from '@/shared/ui/CustomButton';
 
 type TNftFormProps = {
     onSubmit: (data: TFormData) => void;
@@ -97,7 +98,7 @@ export const NFTForm: FC<TNftFormProps> = ({ onSubmit }) => {
 
                 {/* Поле загрузки изображения */}
                 <div className="mb-4 aspect-square bg-background relative">
-                    <label htmlFor="image" className='relative flex w-full h-full border rounded-xl border-gray-500'>
+                    <label htmlFor="image" className='relative flex w-full h-full border rounded-xl overflow-hidden border-gray-500'>
                         {!previewImage && (
                             <p className={classNames(
                                 'absolute z-10 top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 font-bold text-2xl uppercase text-center',
@@ -122,7 +123,15 @@ export const NFTForm: FC<TNftFormProps> = ({ onSubmit }) => {
                 </div>
 
                 {/* Кнопка отправки */}
-                <div>
+                <div className='flex flex-col'>
+                    <CustomButton htmlType='submit' color="purple" extraClass="text-white" disabled={loading}>Boop NFT</CustomButton>
+                </div>
+            </form>
+        </div>
+    );
+}
+
+/* 
                     <button
                         type="submit"
                         className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md shadow hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 dark:bg-indigo-500 dark:hover:bg-indigo-600"
@@ -130,8 +139,4 @@ export const NFTForm: FC<TNftFormProps> = ({ onSubmit }) => {
                     >
                         Boop NFT
                     </button>
-                </div>
-            </form>
-        </div>
-    );
-}
+*/
