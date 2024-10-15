@@ -11,6 +11,7 @@ export type AppState = {
 export type AppActions = {
   incrementNftCount: () => void,
   setUserNftList: (data: DtoResponse<NftDbItem>[]) => void,
+  addNftItem: (item: DtoResponse<NftDbItem>) => void,
 }
 
 export type AppStore = AppState & AppActions
@@ -27,5 +28,8 @@ export const createAppStore = (
     devtools((set, get, store) => ({
       ...initState,
       incrementNftCount: () => set((state) => ({ userNftCount: state.userNftCount + 1 })),
-      setUserNftList: (data) => set((state) => ({ ...state, userNftList: data })),    }))
-)};
+      setUserNftList: (data) => set((state) => ({ ...state, userNftList: data })),
+      addNftItem: (item) => set((state) => ({ ...state, userNftList: [item, ...state.userNftList] })),
+    }))
+  )
+}

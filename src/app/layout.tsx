@@ -5,7 +5,8 @@ import { classNames } from "@/shared/lib/helpers/classNames";
 import Script from "next/script";
 import { RootProvider } from "./_providers";
 import { Header } from "@/widgets/header/ui/Header";
-import Head from "next/head";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -52,6 +53,7 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <footer></footer>
         </RootProvider>
+        <ToastContainer className="container" />
       </body>
     </html>
   );

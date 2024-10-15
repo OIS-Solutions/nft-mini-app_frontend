@@ -70,3 +70,16 @@ body {
   margin: 20px auto;
   line-height: 1.2;
 }
+
+.Toastify__toast {
+  border-radius: 15px !important;
+}
+.Toastify__toast--success {
+  background: linear-gradient(90deg, rgba(90,111,249,1) 0%, rgba(139,77,237,1) 100%) !important;
+}
+.Toastify__toast--error {
+  background: linear-gradient(90deg, rgba(237,0,43,1) 0%, rgba(237,77,125,1) 100%) !important;
+}
+.Toastify__close-button {
+  align-self: center !important;
+}

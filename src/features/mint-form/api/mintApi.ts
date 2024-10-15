@@ -1,12 +1,11 @@
 import axios from "axios"
 import { apiRoutes } from "@/shared/lib/api/apiRoutes";
+import { DtoResponse } from "@/shared/types/dto";
+import { NftDbItem } from "@/shared/types/nft";
 
 const api = axios.create();
 api.defaults.headers["common"]["ngrok-skip-browser-warning"] = "any_value"
 
-type TMintResponse = {
-    data: any
-}
 
 type TMintData = {
     initData: string,
@@ -25,7 +24,7 @@ export class NftService {
 
     public mintNft = async (mintData: TMintData) => {
         try {
-            const response = await api.post<TMintResponse>(apiRoutes.nft.baseRoute, mintData)
+            const response = await api.post<DtoResponse<NftDbItem>>(apiRoutes.nft.baseRoute, mintData)
             const nft = response.data
             return nft
         } catch (error: unknown) {

@@ -9,13 +9,13 @@ import { CustomButton } from '@/shared/ui/CustomButton';
 
 type TNftFormProps = {
     onSubmit: (data: TFormData) => void;
+    loading: boolean;
 }
 
-export const NFTForm: FC<TNftFormProps> = ({ onSubmit }) => {
+export const NFTForm: FC<TNftFormProps> = ({ onSubmit, loading=false }) => {
     const { register, handleSubmit, formState: { errors }, setError, clearErrors, reset } = useForm<TFormData>();
     //const [imageUrl, setImageUrl] = useState<string | null>(null);
     const [previewImage, setPreviewImage] = useState<string>();
-    const [loading, setLoading] = useState(false);
     const [imageFile, setImageFile] = useState<File>();
 
     // Функция для скрытия клавиатуры — убирает фокус
@@ -68,13 +68,14 @@ export const NFTForm: FC<TNftFormProps> = ({ onSubmit }) => {
             handleResetFormValues()
         } catch (error) {
             console.error('Error creating NFT:', error);
-            setLoading(false);
         }
     };
 
     const handleResetFormValues = () => {
         reset()
         setImageFile(undefined)
+        setPreviewImage(undefined)
+
     }
 
     return (
@@ -124,7 +125,9 @@ export const NFTForm: FC<TNftFormProps> = ({ onSubmit }) => {
 
                 {/* Кнопка отправки */}
                 <div className='flex flex-col'>
-                    <CustomButton htmlType='submit' color="purple" extraClass="text-white" disabled={loading}>Boop NFT</CustomButton>
+                    <CustomButton htmlType='submit' color="purple" extraClass="text-white" disabled={loading}>
+                        {loading ? "Booping" : "Boop NFT"}
+                    </CustomButton>
                 </div>
             </form>
         </div>

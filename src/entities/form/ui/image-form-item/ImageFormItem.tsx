@@ -1,6 +1,7 @@
 "use client";
 
 import { imageApi } from "@/features/mint-form/api/imageApi";
+import { toastMessage } from "@/shared/lib/helpers/toastify";
 import { PlusOutlined } from "@ant-design/icons";
 import { Form, Image, message, Upload, UploadProps } from "antd";
 import ImgCrop from "antd-img-crop";
@@ -73,11 +74,11 @@ export const ImageFormItem: FC<TUploadFormProps> = ({ name, label, defaultFileLi
                     );
                     return updatedFileList;
                 })
-                message.success('Image uploaded successfully');
+                toastMessage.success('Image uploaded successfully');
                 onSuccess && onSuccess(newImageUrl); // Сообщаем Upload-компоненту о завершении с телом ответа
             }
         } catch (error) {
-            message.error('Image upload failed');
+            toastMessage.error('Image upload failed');
         }
     };
     useEffect(() => {
