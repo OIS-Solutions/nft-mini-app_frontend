@@ -1,15 +1,17 @@
 "use client"
 import Image from "next/image"
-import { useWebAppData } from "../hooks/useWebAppData"
+//import { useWebAppData } from "../hooks/useWebAppData"
 import { classNames } from "../lib/helpers/classNames"
 import { useState } from "react"
+import { useTelegram } from "@/app/_providers/TelegramProvider"
 
 type TUserAvatarProps = {
     avatar?: string
 }
 
 export const UserAvatar = ({ avatar }: TUserAvatarProps) => {
-    const { initDataUnsafe } = useWebAppData()
+    //const { initDataUnsafe } = useWebAppData()
+    const {initDataUnsafe} = useTelegram();
     const [isLoading, setIsLoading] = useState(true);
     const ImageAvatar = () => (
         avatar && (

@@ -1,13 +1,14 @@
 import { ReactNode } from "react"
 import { StoreProvider } from "./StoreProvider"
-import { WebAppProvider } from "./WebAppProvider"
+import { TelegramProvider } from "./TelegramProvider"
+//import { WebAppProvider } from "./WebAppProvider"
 
 export const RootProvider = ({ children }: { children: ReactNode }) => {
     return (
-        <WebAppProvider>
+        <TelegramProvider>
             <StoreProvider>
                 {children}
             </StoreProvider>
-        </WebAppProvider>
+        </TelegramProvider>
     )
 }

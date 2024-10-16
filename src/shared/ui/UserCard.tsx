@@ -1,12 +1,14 @@
 'use client'
 import { UserAvatar } from "./UserAvatar"
-import { useWebAppData } from "../hooks/useWebAppData"
+//import { useWebAppData } from "../hooks/useWebAppData"
 import { useEffect, useState } from "react";
 import { userCookie } from "../lib/helpers/cookies";
 import { TCookieUserData } from "@/features/auth/types";
+import { useTelegram } from "@/app/_providers/TelegramProvider";
 
 export const UserCard = () => {
-    const {initDataUnsafe} = useWebAppData();
+    //const {initDataUnsafe} = useWebAppData();
+    const {initDataUnsafe} = useTelegram();
     const name = initDataUnsafe?.user?.first_name || initDataUnsafe?.user?.username
     const [avatar, setAvatar] = useState<string>()
     const cookieUserJson = userCookie.getValue()
