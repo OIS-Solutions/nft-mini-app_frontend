@@ -23,6 +23,7 @@ export const NftItemPage: FC<NftItemServerPageProps> = ({ nftItemData }) => {
         }
         backButton?.onClick(routeToHome)
         return () => {
+            backButton?.hide()
             backButton?.offClick(routeToHome)
         }
     }, [])
