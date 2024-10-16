@@ -9,6 +9,7 @@ export const TelegramContext = createContext<{
     initData?: string;
     initDataUnsafe?: WebAppInitData;
     startParams?: TStartParams;
+    backButton?: BackButton;
 }>({});
 
 export const TelegramProvider = ({
@@ -17,7 +18,6 @@ export const TelegramProvider = ({
     children: React.ReactNode;
 }) => {
     const [webApp, setWebApp] = useState<WebApp | null>(null);
-
     const value = useMemo(() => {
         return webApp
             ? {
@@ -25,6 +25,7 @@ export const TelegramProvider = ({
                 initDataUnsafe: webApp.initDataUnsafe,
                 initData: webApp.initData,
                 user: webApp.initDataUnsafe.user,
+                backButton: webApp.BackButton,
             }
             : {};
     }, [webApp]);
