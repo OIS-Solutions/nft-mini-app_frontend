@@ -64,7 +64,10 @@ export type TNftItemUri = {
     attributes?: { [key: string]: any }[]
 }
 
-export type TUriResponse = TNftItemUri
+export type TUriResponse = {
+    record: TNftItemUri,
+    metadata: object
+}
 
 export type NftDbItem = {
     id: number;

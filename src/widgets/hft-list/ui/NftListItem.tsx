@@ -21,7 +21,7 @@ export const NftListItem: FC<DtoResponse<NftDbItem>> = memo((nft) => {
             <Link href={nftLink}>
                 {/* Изображение */}
                 <Image
-                    src={nft.uri.image || mockImage}
+                    src={nft.uri.record.image || mockImage}
                     alt={`nft-${nft.token_id}`}
                     width={100}
                     height={100}

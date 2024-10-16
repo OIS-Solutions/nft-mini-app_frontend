@@ -6,7 +6,7 @@ import { nftApi } from "@/features/mint-form/api/mintApi"
 import { uriApi } from "@/features/mint-form/api/uriApi"
 import { setNftUri } from "@/features/mint-form/helpers/setNftUri"
 import { TFormData } from "@/features/mint-form/types"
-import { NFTForm } from "@/features/mint-form/ui/MontFormNew"
+import { NFTForm } from "@/features/mint-form/ui/MintForm"
 import { toastMessage } from "@/shared/lib/helpers/toastify"
 import { CustomButton } from "@/shared/ui/CustomButton"
 import { ModalMobile } from "@/shared/ui/ModalMobile"
@@ -16,6 +16,7 @@ export const NftMinter = () => {
     const [openModal, setOpenModal] = useState(false);
     const [pending, setPending] = useState(false);
     const [isSuccess, setSuccess] = useState(false);
+    const [isFinished, setIsFinished] = useState(false);
     const {addNftItem} = useAppStore(state => state)
     const initData = typeof window !== "undefined" && window?.Telegram?.WebApp.initData ? window?.Telegram?.WebApp.initData : initDataMock
     const handleSubmitForm = async (values: TFormData) => {
@@ -45,6 +46,7 @@ export const NftMinter = () => {
                     setSuccess(false);
                 }
             }
+            setIsFinished(true)
         } catch (error) {
             console.error(error);
             setSuccess(false);
@@ -66,7 +68,7 @@ export const NftMinter = () => {
                 </div>
             </div>
             <ModalMobile title="Mint NFT" isOpen={openModal} onClose={handleCloseModal}>
-                <NFTForm onSubmit={handleSubmitForm} loading={pending} />
+                <NFTForm onSubmit={handleSubmitForm} loading={pending} isFinished={isFinished}/>
             </ModalMobile>
         </section>
     )

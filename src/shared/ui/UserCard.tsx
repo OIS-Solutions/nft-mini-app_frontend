@@ -16,7 +16,7 @@ export const UserCard = () => {
 
     useEffect(() => {
         console.log(888, cookieUser?.tgId, initDataUnsafe?.user?.id, cookieUser?.avatar);
-        if (cookieUser?.tgId && cookieUser.tgId === initDataUnsafe?.user?.id && cookieUser.avatar) {
+        if (cookieUser?.avatar/* cookieUser?.tgId && cookieUser.tgId === initDataUnsafe?.user?.id && cookieUser.avatar */) {
             setAvatar(cookieUser.avatar)
         }
     }, [initDataUnsafe?.user?.id, cookieUser])

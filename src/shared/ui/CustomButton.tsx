@@ -66,7 +66,7 @@ export const CustomButton = (
             type={htmlType}
             onClick={handleClick}
             className={classNames(
-                'flex justify-center items-center disabled:pointer-events-none disabled:bg-[#EDEDED] disabled:text-[#767676] disabled:border-none ease-in-out duration-300',
+                'flex justify-center items-center disabled:pointer-events-none disabled:opacity-75 disabled:border-none ease-in-out duration-300',
                 "text-xl uppercase",
                 getButtonColor(color),
                 extraClass,
