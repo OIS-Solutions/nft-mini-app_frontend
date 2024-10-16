@@ -47,7 +47,6 @@ export default function RootLayout({
           "h-screen flex flex-col relative"
         )}
       >
-        <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive"></Script>
         <RootProvider>
           <Header />
           <main className="flex-1">{children}</main>
