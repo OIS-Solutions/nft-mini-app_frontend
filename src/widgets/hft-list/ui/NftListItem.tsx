@@ -7,7 +7,8 @@ import Link from "next/link";
 import { FC, useState, useMemo, memo } from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css';
-
+//todo remove
+const mockImage = "https://i.imghippo.com/files/wRmqb1728671407.jpg"
 export const NftListItem: FC<DtoResponse<NftDbItem>> = memo((nft) => {
     //const [isLoaded, setIsLoaded] = useState(false);
 
@@ -20,7 +21,7 @@ export const NftListItem: FC<DtoResponse<NftDbItem>> = memo((nft) => {
             <Link href={nftLink}>
                 {/* Изображение */}
                 <Image
-                    src={nft.uri.record.image}
+                    src={nft.uri.image || mockImage}
                     alt={`nft-${nft.token_id}`}
                     width={100}
                     height={100}

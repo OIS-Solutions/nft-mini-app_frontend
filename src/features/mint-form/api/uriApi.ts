@@ -7,8 +7,6 @@ const uriUrl = "https://api.jsonbin.io/v3/b"
 api.defaults.headers.common["Content-Type"] = "application/json"
 api.defaults.headers.common["X-Master-Key"] = "$2a$10$/8wt9SlXHsMkQHUe.gGCD.Nh4p2QN8UCCu8UAFXCDAhXRLJSSf0RK"
 api.defaults.headers.common["X-Bin-Private"] = "false"
-api.defaults.headers.common["X-Bin-Private"] = "false"
-api.defaults.headers.common["X-Collection-Id"] = "66fcc52dacd3cb34a88fbf53"
 type TUriApiResponse = {
     record: object,
     metadata: {

@@ -31,7 +31,7 @@ export const NftItemPage: FC<NftItemServerPageProps> = ({ nftItemData }) => {
     return (
         <section className="h-full">
             <div className="container">
-                {nftItem && (<NftCard nftItem={nftItem} />)}
+                {nftItem && <NftCard nftItem={nftItem} />}
             </div>
         </section>
     )
