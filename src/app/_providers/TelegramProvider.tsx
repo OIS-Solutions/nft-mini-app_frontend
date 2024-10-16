@@ -18,6 +18,7 @@ export const TelegramProvider = ({
     children: React.ReactNode;
 }) => {
     const [webApp, setWebApp] = useState<WebApp | null>(null);
+    const [ready, setReady] = useState(false);
     const value = useMemo(() => {
         return webApp
             ? {
@@ -33,6 +34,7 @@ export const TelegramProvider = ({
     useEffect(() => {
         const WebApp:WebApp = (window as any).Telegram?.WebApp;
         if (WebApp) {
+            setReady(true)
             WebApp.ready();
             WebApp.expand();
             setWebApp(WebApp);
@@ -46,7 +48,7 @@ export const TelegramProvider = ({
                 src="https://telegram.org/js/telegram-web-app.js"
                 strategy="beforeInteractive"
             />
-            {children}
+            {ready ? children : <div className="fixed inset-0 bg-background flex justify-center items-center">LOADING</div>}
         </TelegramContext.Provider>
     );
 };

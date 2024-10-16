@@ -9,7 +9,7 @@ const NftItemServerPage = async ({ params }:TNftItemPageProps) => {
     const { uuid } = params;
     const nftItemData = await nftItemApi.getNftItem(uuid)
     if (nftItemData) return (
-        <NftItemPage nftItemData={nftItemData}/>
+        <NftItemPage nftItemData={nftItemData} />
     )
     return <><h1>not found</h1></>
 }

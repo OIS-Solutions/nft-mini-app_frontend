@@ -12,9 +12,10 @@ export const NftList = () => {
     const [loading, setLoading] = useState(false);
     const { setUserNftList, userNftList } = useAppStore(state => state)
 
-    const renderNftList = (nft: DtoResponse<NftDbItem>) => <NftListItem {...nft}/>
+    const renderNftList = (nft: DtoResponse<NftDbItem>) => <NftListItem key={nft.uuid} {...nft}/>
+
     useEffect(() => {
-        if (typeof window !== "undefined" && window.Telegram.WebApp) {
+        if (userNftList.length === 0, typeof window !== "undefined" && window.Telegram.WebApp) {
             const WebApp = window.Telegram.WebApp;
             //todo убрать tg_id 439572632
             const tg_id = WebApp.initDataUnsafe.user?.id || 439572632
