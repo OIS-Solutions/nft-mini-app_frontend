@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const API_URL = process.env.API_URL || "https://toucan-delicate-broadly.ngrok-free.app"
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://toucan-delicate-broadly.ngrok-free.app"
 
 const nextConfig = {
     reactStrictMode: true,
@@ -29,6 +29,9 @@ const nextConfig = {
         },
         {
           hostname: 'i.imghippo.com'
+        },
+        {
+          hostname: 'tan-impressed-finch-241.mypinata.cloud'
         }
       ],
     },

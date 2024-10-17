@@ -10,9 +10,9 @@ type TNftCardProps = {
     nftItem: NftDbItem
 }
 export const NftCard: FC<TNftCardProps> = ({ nftItem }) => {
-    const shareLink = `https://t.me/share/url?url=${"t.me/NFT_Creator_AppBot/app?startapp=nft_42a20d50-d6ba-4d5d-bfdd-2d9060818354"}&text=Check my new ${nftItem.uri.record.name}`
+    const shareLink = `https://t.me/share/url?url=${"t.me/NFT_Creator_AppBot/app?startapp=nft_42a20d50-d6ba-4d5d-bfdd-2d9060818354"}&text=Check my new ${nftItem.uri.name}`
     const infoList = [
-        { title: 'Name', value: nftItem.uri.record.name || "-" },
+        { title: 'Name', value: nftItem.uri.name || "-" },
         { title: 'Contract address', value: nftItem.contract_address },
         { title: 'Token ID', value: nftItem.token_id },
         { title: 'Token Standard', value: 'ERC-721' },
@@ -23,7 +23,7 @@ export const NftCard: FC<TNftCardProps> = ({ nftItem }) => {
             <div className="flex flex-col gap-4 mt-10">
                 <div className="flex justify-center">
                     <Image
-                        src={nftItem.uri.record.image || 'https://i.imghippo.com/files/wRmqb1728671407.jpg'} //todo remove!
+                        src={nftItem.uri.image || 'https://i.imghippo.com/files/wRmqb1728671407.jpg'} //todo remove!
                         alt="nft-image"
                         width={300}
                         height={300}

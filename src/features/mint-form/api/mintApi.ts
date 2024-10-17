@@ -1,7 +1,8 @@
 import axios from "axios"
 import { apiRoutes } from "@/shared/lib/api/apiRoutes";
 import { DtoResponse } from "@/shared/types/dto";
-import { NftDbItem } from "@/shared/types/nft";
+import { NftDbItem, TNftItemUri } from "@/shared/types/nft";
+import { PinataSDK } from "pinata-web3";
 
 const api = axios.create();
 api.defaults.headers["common"]["ngrok-skip-browser-warning"] = "any_value"
@@ -12,6 +13,10 @@ type TMintData = {
     uriUrl: string,
 }
 
+export const pinataJwt = process.env.NEXT_PUBLIC_PINATA_JWT!
+export const pinataGateway = "tan-impressed-finch-241.mypinata.cloud"
+const pinata = new PinataSDK({ pinataJwt, pinataGateway });
+
 export class NftService {
 
     private handleError(error: any, action: string): void {
@@ -19,6 +24,29 @@ export class NftService {
             console.error(`${action} failed:`, error.response.data);
         } else {
             console.error(`${action} failed:`, error.message ? error.message : error);
+        }
+    }
+
+    public uploadImagePinata = async (image: File) => {
+
+        try {
+            const response = await pinata.upload.file(image)
+            const imageHash = response.IpfsHash
+            return `https://${pinataGateway}/ipfs/${imageHash}`
+        } catch (error: unknown) {
+            this.handleError(error, 'Image upload');
+            return null;
+        }
+    }
+
+    public uploadUri = async (uriData: TNftItemUri) => {
+        try {
+            const response = await pinata.upload.json(uriData)
+            const uriHash = response.IpfsHash
+            return `https://${pinataGateway}/ipfs/${uriHash}`
+        } catch (error: unknown) {
+            this.handleError(error, 'Uri upload');
+            return null;
         }
     }
 

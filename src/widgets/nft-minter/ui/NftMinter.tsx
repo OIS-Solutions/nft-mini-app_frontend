@@ -1,9 +1,7 @@
 "use client"
 import { useAppStore } from "@/app/_providers/StoreProvider"
 import { initDataMock } from "@/app/_providers/WebAppProvider"
-import { imageApi } from "@/features/mint-form/api/imageApi"
 import { nftApi } from "@/features/mint-form/api/mintApi"
-import { uriApi } from "@/features/mint-form/api/uriApi"
 import { setNftUri } from "@/features/mint-form/helpers/setNftUri"
 import { TFormData } from "@/features/mint-form/types"
 import { NFTForm } from "@/features/mint-form/ui/MintForm"
@@ -23,19 +21,22 @@ export const NftMinter = () => {
         //handleCloseModal()
         setPending(true);
         try {
+            /* 1. Get Image URL */
             const formData = new FormData();
             formData.append('file', values.imageFile);
-            const imageUploadResponse = await imageApi.uploadImage(formData);
-            if (!imageUploadResponse) throw new Error("Image upload error");
+            const uploadedImageUrl = await nftApi.uploadImagePinata(values.imageFile)
+            if (!uploadedImageUrl) throw new Error("Image upload error");
             toastMessage.success("Image uploaded");
-            const uploadedImageUrl = imageUploadResponse?.data.view_url;
+            /* 2. Get URI URL */
             const nftDataDto = {
                 name: values.name,
                 image: uploadedImageUrl,
             };
-            const uri = await uriApi.uploadUri(setNftUri(nftDataDto))
-            uri && toastMessage.success("uri uploaded");
-            if (uri && initData) {
+            const uri = await nftApi.uploadUri(setNftUri(nftDataDto))
+            if (!uri) throw new Error("Uri upload error");
+            toastMessage.success("uri uploaded");
+            /* 3. Get NFT */
+            if (initData) {
                 const nftData = await nftApi.mintNft({initData, uriUrl: uri})
                 if (nftData) {
                     addNftItem(nftData)
@@ -59,6 +60,7 @@ export const NftMinter = () => {
     const handleCloseModal = () => {
         setOpenModal(false)
     }
+
     return (
         <section className="flex flex-col items-center">
             <div className="container">

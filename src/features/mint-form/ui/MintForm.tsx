@@ -28,8 +28,9 @@ export const NFTForm: FC<TNftFormProps> = ({ onSubmit, loading=false, isFinished
     };
 
     // Предварительный просмотр изображения
-    const handleImagePreview = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleImagePreview = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
+
         if (file) {
             // Валидация типа файла
             const validFormats = ['image/jpeg', 'image/png', 'image/webp'];
