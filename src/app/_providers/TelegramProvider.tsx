@@ -9,6 +9,7 @@ import { HttpStatusCode } from "axios";
 import { tokenCookie, userCookie } from "@/shared/lib/helpers/cookies";
 import { parseStartParam } from "@/shared/lib/helpers/parseStartParam";
 import { useRouter } from "next/navigation";
+import { useAppStore } from "./StoreProvider";
 
 export const TelegramContext = createContext<{
     webApp?: WebApp;
@@ -26,6 +27,7 @@ export const TelegramProvider = ({
 }) => {
     const [webApp, setWebApp] = useState<WebApp | null>(null);
     const [ready, setReady] = useState(false);
+    const { setUser } = useAppStore(state => state)
     const router = useRouter();
     const value = useMemo(() => {
         return webApp
@@ -42,8 +44,6 @@ export const TelegramProvider = ({
     const authCheck = async () => {
         const WebApp:WebApp = (window as any).Telegram?.WebApp;
         if (WebApp.initData || initDataMock) {
-            console.log("WebAppProvider initData: ", WebApp.initData);
-            console.log("window.Telegram.WebApp.isExpanded", window.Telegram.WebApp.isExpanded);
             try {
                 const response = await authApi.login(WebApp.initData || initDataMock);
                 if (response?.data) {
@@ -53,7 +53,8 @@ export const TelegramProvider = ({
                         console.log("user is Created");
                     }
                     tokenCookie.setValue(response?.data.token);
-                    userCookie.setValue(JSON.stringify({ avatar: response?.data.user.avatar, tgId: response?.data.user.tgId }));
+                    setUser(response.data.user)
+                    userCookie.setValue(JSON.stringify(response.data.user));
                 }
             } catch (error) {
                 console.error("Auth failed", error);

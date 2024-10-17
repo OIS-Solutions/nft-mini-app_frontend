@@ -5,25 +5,25 @@ import { useEffect, useState } from "react";
 import { userCookie } from "../lib/helpers/cookies";
 import { TCookieUserData } from "@/features/auth/types";
 import { useTelegram } from "@/app/_providers/TelegramProvider";
+import { useAppStore } from "@/app/_providers/StoreProvider";
 
 export const UserCard = () => {
     //const {initDataUnsafe} = useWebAppData();
     const {initDataUnsafe} = useTelegram();
     const name = initDataUnsafe?.user?.first_name || initDataUnsafe?.user?.username
-    const [avatar, setAvatar] = useState<string>()
+    const { user, setUser } = useAppStore(state => state)
     const cookieUserJson = userCookie.getValue()
-    const cookieUser = cookieUserJson ? JSON.parse(cookieUserJson) as TCookieUserData : undefined
 
     useEffect(() => {
-        console.log(888, cookieUser?.tgId, initDataUnsafe?.user?.id, cookieUser?.avatar);
-        if (cookieUser?.avatar/* cookieUser?.tgId && cookieUser.tgId === initDataUnsafe?.user?.id && cookieUser.avatar */) {
-            setAvatar(cookieUser.avatar)
+        const cookieUser = cookieUserJson ? JSON.parse(cookieUserJson) as TCookieUserData : undefined
+        if (cookieUser) {
+            setUser(cookieUser)
         }
-    }, [initDataUnsafe?.user?.id, cookieUser])
+    }, [initDataUnsafe?.user?.id, cookieUserJson])
 
     return (
         <div className="flex flex-col items-center gap-1">
-            <UserAvatar avatar={avatar}/>
+            <UserAvatar avatar={user.avatar}/>
             {name && <span className="font-bold">{name}</span>}
         </div>
     )

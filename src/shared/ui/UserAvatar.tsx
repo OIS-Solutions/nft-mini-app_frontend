@@ -4,7 +4,7 @@ import Image from "next/image"
 import { classNames } from "../lib/helpers/classNames"
 import { useState } from "react"
 import { useTelegram } from "@/app/_providers/TelegramProvider"
-
+import UserIcon from "@/shared/assets/icons/user.svg"
 type TUserAvatarProps = {
     avatar?: string
 }
@@ -36,7 +36,7 @@ export const UserAvatar = ({ avatar }: TUserAvatarProps) => {
             case Boolean(initDataUnsafe?.user?.username):
                 return initDataUnsafe?.user?.username && <AvatarText initials={initDataUnsafe?.user?.username[0]} />
             default:
-                return <AvatarText initials={""} />
+                return <UserIcon fill='gray' />
         }
     }
     const AvatarText = ({ initials }: { initials: string }) => (
@@ -47,7 +47,7 @@ export const UserAvatar = ({ avatar }: TUserAvatarProps) => {
     return (
         <div className={classNames(
             "w-[80px] h-[80px] rounded-full",
-            "bg-blue-500",
+            "bg-gray-500",
             "flex justify-center items-center",
 
         )}>

@@ -5,10 +5,12 @@ import { TelegramProvider } from "./TelegramProvider"
 
 export const RootProvider = ({ children }: { children: ReactNode }) => {
     return (
-        <TelegramProvider>
-            <StoreProvider>
+
+        <StoreProvider>
+            <TelegramProvider>
                 {children}
-            </StoreProvider>
-        </TelegramProvider>
+            </TelegramProvider>
+        </StoreProvider>
+
     )
 }
