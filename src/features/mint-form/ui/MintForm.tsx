@@ -73,6 +73,8 @@ export const NFTForm: FC<TNftFormProps> = ({ onSubmit, loading=false, isFinished
     };
 
     useEffect(() => {
+        console.log('jwt', process.env.NEXT_PUBLIC_PINATA_JWT);
+        
         if (isFinished) {
             reset()
             setImageFile(undefined)
